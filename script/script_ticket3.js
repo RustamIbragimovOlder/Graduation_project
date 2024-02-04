@@ -84,22 +84,18 @@ function renderTicketInfo(ticketInfo) {
 
     ticketInfo.forEach(item => {
         ticketBox.insertAdjacentHTML('beforeend', `
-        <div class="ticket_item-box" id="${item.title}">
-			<div class="ticket_item">
-                <p class="ticket_item-title">${item.title}</p>
-                <img class="ticket_item-image" src="${item.image}" alt="">
-                <p class="ticket_item-question">${item.question}</p>
-                <div class="ticket_item-answer-box">
-                    <button class="ticket_item-answer ${item.correct_1}" id="${item.id}">${item.answer_1}</button>
-                    <button class="ticket_item-answer ${item.correct_2}" id="${item.id}">${item.answer_2}</button>
-                    <button class="ticket_item-answer ${item.correct_3}" id="${item.id}">${item.answer_3}</button>
-                    <button class="ticket_item-answer ${item.correct_4}" id="${item.id}">${item.answer_4}</button>
-                </div>
-                <button class="ticket_item-hint-btn">Показать подсказку</button>
-                <p class="ticket_item-hint-text">${item.hint}</p>
-		    </div>
-        </div>
-        `)
+            <div class="ticket-box_item">
+                <p class="ticket-box_item__title">${item.title}</p>
+                <img class="ticket-box_item__image" src="${item.image}" alt="">
+                <p class="ticket-box_item__question">${item.question}</p>
+                <button class="ticket-box_item__answer ${item.correct_1}" id="${item.id}">${item.answer_1}</button>
+                <button class="ticket-box_item__answer ${item.correct_2}" id="${item.id}">${item.answer_2}</button>
+                <button class="ticket-box_item__answer ${item.correct_3}" id="${item.id}">${item.answer_3}</button>
+                <button class="ticket-box_item__answer ${item.correct_4}" id="${item.id}">${item.answer_4}</button>
+                <button class="ticket-box_item__hint-btn">Показать подсказку</button>
+                <p class="ticket-box_item__hint-text">${item.hint}</p>
+            </div>
+            `)
         let resultCount = document.getElementById('counter').textContent;
 
         let correctCount = document.getElementById('counterCorrect').textContent;
@@ -111,7 +107,7 @@ function renderTicketInfo(ticketInfo) {
                 document.getElementById('counterCorrect').textContent = correctCount;
                 document.getElementById('counter').textContent = resultCount;
                 const id = this.getAttribute('id');
-                let buttons = document.getElementsByClassName("ticket_item-answer");
+                let buttons = document.getElementsByClassName("ticket-box_item__answer");
                 for (const button of buttons) {
                     let buttonId = button.getAttribute('id');
                     if (id === buttonId) {
@@ -130,7 +126,7 @@ function renderTicketInfo(ticketInfo) {
                 document.getElementById('inCounterCorrect').textContent = inCorrectCount;
                 document.getElementById('counter').textContent = resultCount;
                 const id = this.getAttribute('id');
-                let buttons = document.getElementsByClassName("ticket_item-answer");
+                let buttons = document.getElementsByClassName("ticket-box_item__answer");
                 for (const button of buttons) {
                     let buttonId = button.getAttribute('id');
                     if (id === buttonId) {
@@ -143,3 +139,51 @@ function renderTicketInfo(ticketInfo) {
 }
 
 renderTicketInfo(ticketInfo);
+
+let navigation = document.querySelector(".navigation");
+let slider = document.querySelector(".slider");
+// let content = document.querySelector(".slider .content");
+let content = document.querySelector(".slider .ticket-box");
+
+let navcount = content.offsetWidth / slider.offsetWidth;
+let previous = document.querySelector(".previous");
+let next = document.querySelector(".next");
+for (let i = 1; i <= navcount; i++) {
+    let num = document.createElement("span");
+    num.className = "num";
+    num.dataset.index = i;
+    num.textContent = i;
+    next.before(num);
+}
+navigation.firstElementChild.nextSibling.classList.add("selected");
+let nums = Array.from(document.querySelectorAll(".num"));
+
+next.addEventListener("click", function () {
+    let current = document.querySelector(".selected");
+    if (nums.indexOf(current) + 1 < nums.length) {
+        nums.forEach((e) => {
+            e.classList.remove("selected");
+        });
+        current.nextElementSibling.classList.add("selected");
+        content.style.transform = `translateX(${current.dataset.index * -slider.offsetWidth}px)`;
+    }
+});
+previous.addEventListener("click", function () {
+    let current = document.querySelector(".selected");
+    if (nums.indexOf(current) > 0) {
+        nums.forEach((e) => {
+            e.classList.remove("selected");
+        });
+        content.style.transform = `translateX(${(current.dataset.index - 2) * -slider.offsetWidth}px)`;
+        current.previousElementSibling.classList.add("selected");
+    }
+});
+nums.forEach((e) => {
+    e.addEventListener("click", function () {
+        nums.forEach((e) => {
+            e.classList.remove("selected");
+        });
+        e.classList.add("selected");
+        content.style.transform = `translateX(${nums.indexOf(e) * -slider.offsetWidth}px)`;
+    });
+});

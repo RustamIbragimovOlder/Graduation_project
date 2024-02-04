@@ -8,26 +8,37 @@ body {
     font-family: 'Times New Roman', Times, serif;
 }
 
-h2 {
-    margin-left: 500px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    font-size: 36px;
+.header, .footer {
+    background-color: rgb(215, 209, 209);
+    width: 1200px;
 }
 
 .center {
-    padding-left: calc(50% - 600px);
-    padding-right: calc(50% - 600px);
+    padding-left: calc(50% - 1600px);
+    padding-right: calc(50% - 1600px);
+}
+
+h2 {
+    margin-left: 500px;
+    margin-bottom: 12px;
+}
+
+h4 {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    margin-left: 32px;
 }
 
 .ticket-box {
-    width: 1100px;
-    display: grid;
-    grid-template-rows: repeat(20, auto);
-    gap: 40px;
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    transform-origin: left;
+    transition: 0.5s;
+    transition-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }
 
-.ticket_item-box {
+.ticket-box_item {
     margin-left: 40px;
     margin-right: 40px;
     border: 1px solid black;
@@ -37,105 +48,158 @@ h2 {
     grid-template-rows: repeat(5, auto);
 }
 
-.ticket_item-title {
+.ticket-box_item__title {
     padding-left: 20px;
     font-size: 24px;
-    margin-top: 10px;
+    margin-top: 4px;
     font-weight: bold;
 }
 
-.ticket_item-image {
+.ticket-box_item__image {
     margin-left: 200px;
     text-align: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 4px;
 }
 
-.ticket_item-question {
+.ticket-box_item__question {
     padding-left: 20px;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.ticket_item-answer-box {
-    display: flex;
-    flex-direction: column;
+    margin-bottom: 4px;
 }
 
 .correct, .inCorrect {
-    margin: 10px 10px 10px 10px;
+    margin: 8px 10px 0 10px;
     padding-left: 20px;
-    font-size: 20px;
+    font-size: 16px;
     border-bottom: 1px solid black;
     border-radius: 10px;
-    font-size: 20px;
     width: 1000px;
-    height: 60px;
+    height: fit-content;
+    padding-top: 8px;
+    padding-bottom: 8px;
     display: flex;
     align-items: center;
     text-align: left;
     transition: background-color 1s ease;
 }
 
-.ticket_item-answer:hover {
+.ticket-box_item__answer:hover {
     background-color: yellow;
 }
 
-.ticket_item-hint-btn {
+.ticket-box_item__hint-btn {
     font-size: 16px;
     font-family: 'Times New Roman', Times, serif;
     font-size: 16px;
-    margin-top: 10px;
+    margin-top: 8px;
     padding: 5px;
     margin-left: 10px;
+    margin-right: 10px;
     transition: background-color 1s ease;
 }
 
-.ticket_item-hint-btn:hover {
+.ticket-box_item__hint-btn:hover {
     background-color: greenyellow;
 }
 
-.ticket_item-hint-text {
-    margin: 12px;
+.ticket-box_item__hint-text {
+    margin: 8px;
     font-size: 16px;
     visibility: hidden;
 }
 
-.ticket_item-hint-btn:focus+.ticket_item-hint-text {
+.ticket-box_item__hint-btn:focus+.ticket-box_item__hint-text {
     visibility: visible;
 }
 
-.footer {
-    margin-top: 40px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    gap: 80px;
-    width: 1100px;
+.res-trans {
+    margin-top: 20px;
+    width: 800px;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
 }
 
 .result {
     width: 600px;
-    font-size: 32px;
-    margin-left: 300px;
+    font-size: 20px;
+    margin-left: 120px;
 }
 
 .counter {
-    font-size: 32px;
+    font-size: 20px;
 }
 
 .transition-btn {
     font-family: 'Times New Roman', Times, serif;
-    font-size: 24px;
-    width: 400px;
-    height: 80px;
+    font-size: 20px;
+    width: 320px;
+    height: 60px;
     border: 1px solid black;
     border-radius: 10px;
-    margin-left: 300px;
     transition: background-color 1s ease;
 }
 
 .transition-btn:hover {
     background-color: greenyellow;
+}
+
+
+.navigation {
+    display: flex;
+}
+
+span {
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 44px;
+    height: 44px;
+    color: black;
+    box-shadow: 0 0 5px 1px #21212159;
+    margin: 5px;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.75s;
+}
+
+.selected {
+    background-color: #e91e62e1;
+    color: #fff;
+}
+
+span:hover {
+    color: #fff;
+    background-color: #e91e6277;
+}
+
+.selected {
+    transform: scale(0.8);
+}
+
+::selection {
+    background-color: transparent;
+}
+
+.slider {
+    width: 1100px;
+    height: auto;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.element {
+    width: 1100px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.control {
+    position: absolute;
+    left: 85%;
+    top: 35%;
 }
